@@ -225,3 +225,65 @@ a bare shell.
   your call.
 - **Site improvements depreciate on the building's curve.** Paving and fencing have 15–25 year
   lives against a building's 45. Immaterial on new construction, material at 15+ years.
+
+---
+
+## 9. Follow-up: filters, and the base rent / CAM / gross rent split
+
+### Filters
+
+`Expense Database` (**A3:AR204**) and `PSF Summary` (**A3:AM204**) now carry an autofilter on every
+column, header row 3. Both register a `_xlnm._FilterDatabase` name so Excel treats the block as a
+proper database.
+
+**One more off-by-seven, found while wiring this up.** Both sheets hold 201 comps in rows 4–204,
+but everything that reads them stopped at row 197:
+
+- `Comp Picker` and `Subject Property` matched expense comps over `'Expense Database'!$AO$4:$AO$197`
+  — 40 references across 20 cells. **Rows 198–204 were invisible to the expense comp matcher.**
+- The OCC code, City, State and Prop Type data validations covered `B4:B197`, `E4:E197`, `F4:F197`,
+  `G4:G197` — the last seven rows accepted anything.
+
+All extended to row 204. (`Sales` was already correct at `$AJ$2:$AJ$941`.)
+
+When you add comps, **insert rows inside the existing block** rather than appending below row 204 —
+Excel then grows the filter range and the `$AO$4:$AO$204` references automatically. Appending past
+the last row means widening those ranges and copying the AN/AO helper formulas down by hand.
+
+### Leases — rent components separated
+
+Base rent and CAM were already in different columns but ambiguously named, and nothing derived CAM
+or gross rent. The tab now carries all three components, each monthly, annually and per SF of
+**leased** area (not building area — several comps are partial-floor):
+
+| Col | | Formula |
+|---|---|---|
+| J / K / L | **Base Rent** — Monthly / Annual / $/SF | (existing, renamed) |
+| P | **CAM — Monthly** | (existing, renamed) |
+| R | **CAM — Annual** | `=IF(N(P6)=0,"",P6*12)` |
+| S | **CAM $/SF** | `=IF(OR(N(R6)=0,N(I6)=0),"",R6/I6)` |
+| T | **Gross Rent — Monthly** | `=IF(N(J6)=0,"",J6+N(P6))` |
+| U | **Gross Rent — Annual** | `=IF(N(K6)=0,"",K6+N(R6))` |
+| V | **Gross Rent $/SF** | `=IF(OR(N(U6)=0,N(I6)=0),"",U6/I6)` |
+
+Applied to the comp table (rows 6–21) and to the 125 Bridge St rent roll (rows 25–35, plus the
+row 36 totals — that property has no stated unit areas, so its $/SF columns stay blank by design).
+
+**Verified numerically:** across all 14 comps with rent data, gross $/SF equals base $/SF + CAM $/SF
+to four decimals. Denver Distribution Center, for example: $6.5164 base + $0.1007 CAM = **$6.6171
+gross**, on 553,757 leased SF.
+
+**The one judgment call.** `CAM — Annual` is left **blank** where the source reported no CAM, so a
+blank `CAM $/SF` marks a lease whose gross figure is base rent only. Gross rent treats an unreported
+CAM as zero, because that is right for an absolute-net landlord and wrong for a lease where CAM
+simply wasn't transcribed — read those rows against the **Lease Type** column. Of the 14 comps with
+rent, only 5 report CAM. That note is on the tab at B52.
+
+### Market rent conclusion — now dual
+
+The conclusion block reports both bases side by side: **base rent in column C, gross rent in
+column F**, each with count / low / high / average / median. Two hidden stat columns feed them
+(`Y` base $/SF, `Z` gross $/SF), both gated on the `In Set?` flag, so the two counts also tell you
+how many of your selected leases actually reported CAM.
+
+`C49` (concluded market rent) still drives `Income Approach!D8` — unchanged.
