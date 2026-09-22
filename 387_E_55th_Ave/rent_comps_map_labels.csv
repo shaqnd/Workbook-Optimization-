@@ -1,0 +1,7 @@
+Label,Type,Address,City,State,Zip,Sign Date,Use,Size SF,Asking Rent $/SF,Lease Type
+Subject,Subject,387 E 55th Ave,Denver,CO,80216,,Service Garage,2800,,
+Rental 1,Comparable Rental,5200 Broadway,Denver,CO,80216,6/24/2024,Flex,3985,$20.00,NNN
+Rental 2,Comparable Rental,913 E 75th Ave,Denver,CO,80229,1/29/2024,Industrial,3056,$14.00,NNN
+Rental 3,Comparable Rental,913 E 75th Ave,Denver,CO,80229,2/19/2024,Industrial,2311,$14.00,NNN
+Rental 4,Comparable Rental,6535 York St,Denver,CO,80229,8/29/2022,Industrial,3750,$13.00,MG
+Rental 5,Comparable Rental,800 E 73rd Ave,Denver,CO,80229,5/17/2022,Office,1190,$13.51,MG
