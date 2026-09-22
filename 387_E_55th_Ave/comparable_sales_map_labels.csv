@@ -1,0 +1,10 @@
+Label,Type,Address,City,State,Zip,Sale Date,Sale Price,Bldg SF,Price/SF
+Subject,Subject,387 E 55th Ave,Denver,CO,80216,,,2800,
+Sale 1,Comparable Sale,4309 Elati St,Denver,CO,80216,6/30/2022,"$865,000",3000,$288.33
+Sale 2,Comparable Sale,4161 Elati St,Denver,CO,80216,5/10/2024,"$900,000",3003,$299.70
+Sale 3,Comparable Sale,6775 E 56th Ave,Commerce City,CO,80022,11/4/2022,"$980,000",3200,$306.25
+Sale 4,Comparable Sale,5690 Lamar St,Arvada,CO,80002,3/18/2024,"$1,000,000",3143,$318.17
+Sale 5,Comparable Sale,5503 Marshall St,Arvada,CO,80002,12/30/2022,"$1,500,000",4583,$327.30
+Sale 6,Comparable Sale,4250 Fox St,Denver,CO,80216,6/16/2022,"$1,265,000",3840,$329.43
+Sale 7,Comparable Sale,4810 Olive St,Commerce City,CO,80022,9/27/2022,"$1,475,000",4215,$349.94
+Sale 8,Comparable Sale,5350 Broadway,Denver,CO,80216,3/14/2022,"$1,300,000",3500,$371.43
